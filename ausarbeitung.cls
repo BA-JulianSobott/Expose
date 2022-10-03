@@ -287,6 +287,11 @@
                 {Bachelor's Thesis}}%
   \psbfalse%
 }
+\newcommand{\Expose}{%
+  \doctype{\DeEn{Exposè zur Bachelorarbeit}%
+                {Exposè}}%
+  \psbfalse%
+}
 \newcommand{\Seminararbeit}{%
   \doctype{\DeEn{Seminararbeit}%
                 {Seminar Paper}}%

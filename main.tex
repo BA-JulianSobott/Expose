@@ -5,14 +5,15 @@
 
 \documentclass[oneside]{ausarbeitung}
 
-\bibliography{latexlit}
+\addbibresource{latexlit.bib}
 
-\usepackage{dirtree}
 
 % ----------------------------------------------------------------------
 
 
 \makeatletter
+
+\renewcommand{\thesection}{\arabic{section}}
 
 \begin{document}
 
@@ -26,9 +27,10 @@
 % Erlaubte Werte:
 %   \Praxissemesterbericht
 %   \Projektbericht
-   \Bachelorarbeit
+%   \Bachelorarbeit
 %   \Seminararbeit
 %   \Masterarbeit
+    \Expose
 
 %    \Seminararbeit
 
@@ -55,7 +57,7 @@
 %\examinerB{Prof.~Dr.~Ulrich~Klauck}
 
 %--- Einreichungsdatum
-    \date{30. September 2022}
+    \date{03. Oktober 2022}
 
 %--- Angaben zur Firma
 % Auskommentieren, wenn die Arbeit nicht bei einer ext. Firma gemacht wurde.
@@ -65,9 +67,9 @@
 \companycity{10178 Berlin}
 
 %--- Angaben zum Betreuer bei dieser Firma
-%\advisorname{Name des Betreuers}
+\advisorname{Robin Lamberti}
 %\advisorphone{(01234) 567-890}
-%\advisoremail{name@company.xxx}
+\advisoremail{robin.lamberti@frachtwerk.de}
 
 %--- Titelseite Anzeigen
     \maketitle
@@ -75,11 +77,10 @@
 
 %---
     \pagenumbering{arabic}
-    \setcounter{page}{1}
 
 %--- Firmendaten Anzeigen
 % Auskommentieren, wenn die Arbeit nicht bei einer ext. Firma gemacht wurde.
-%\makeworkplace
+\makeworkplace
 %\cleardoublepage
 
 %--- Eidesstattliche Erklärung anzeigen
@@ -87,11 +88,12 @@
 
 %---
 %-----------------------------------------------------------------------
+    \setcounter{page}{1}
     \cleardoublepage
 
     \input{expose.tex}
 
     \appendix
-    \printbibliography[heading=bibintoc]
+    \printbibliography
 
 \end{document}

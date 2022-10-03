@@ -3,7 +3,7 @@
 Im Unternehmen wurde eine Projektverwaltungssoftware entwickelt.
 Diese hat unter anderem folgende Funktionen:
 \begin{itemize}
-  \item Für Kundenprojekte können Pläne angelegt werden.
+  \item Für Kundenprojekte können Pläne angelegt werden. Ein Plan beschreibt unter anderem, wer wie viel Stunden mit welchen Kosten an einem Projekt arbeiten kann. 
   \item Mitarbeiter:innen können Stunden für die Projekte erfassen.
   \item Am Ende eines Monats können aus den erfassten Stunden die Rechnungen an die Kunden erstellt werden.
   \item Projektleiter:innen können die Stunden der Mitarbeiter:innen einsehen.
@@ -19,7 +19,7 @@ Deployt wird der Stack in Docker Containern auf einer virtuellen Maschine mithil
 
 Um die Applikation an Kunden verkaufen zu können, soll sie als Software
 as a Service (SaaS) angeboten werden.
-Das heißt, die Software kann über die Webseite von mehreren Mandaten genutzt werden.
+Das heißt, die Software kann über die Webseite von mehreren Mandanten genutzt werden.
 
 
 \section{Problemstellung}\label{sec:problemstellung}
@@ -34,7 +34,7 @@ Im Frontend muss es die Möglichkeit geben, sich als Mandant, einen Zugang zu ka
 Im Backend muss diese Funktionalität unterstützt werden.
 An einer Stelle zwischen Frontend und Datenbank muss der jeweilige Mandant festgestellt werden, sodass die entsprechenden Daten ausgewählt werden.
 Hier ist die Schwierigkeit zu entscheiden, auf welcher Ebene die Logik und die Daten voneinander getrennt werden sollen.
-Zum Beispiel, ob es pro Mandant eigene Datenbanken, eigene Tabellen geben soll oder nur über Attribute innerhalb einer Tabelle die Mandanten unterschieden werden sollen.
+Zum Beispiel, ob es pro Mandant eine eigene Datenbank, eigene Tabellen geben soll oder nur über Attribute innerhalb einer Tabelle die Mandanten unterschieden werden sollen.
 
 \section{Lösungsansatz}\label{sec:loesungsansatz}
 
@@ -90,39 +90,16 @@ Danach soll eine, für das Beispielprojekt am besten geeignete Lösung, als Prot
   \begin{itemize}
   \item
     Anhand der Kriterien soll die möglicherweise beste Lösung herausgesucht werden
+    \item Bei der Auswahl soll eine Lösung gefunden werden, die gut abgeschnitten hat und in der vorgegebenen Zeit machbar ist.
   \end{itemize}
 \item
   Lösung in einem Prototyp umsetzen
 
   \begin{itemize}
+  \item Während der Entwicklung sollen soweit sinnvoll Tests erstellt werden.
+  \item Über eine CI/CD Pipeline sollen die Änderungen regelmäßig getestet und deployt werden.
   \item
-    Die rausgesuchte Lösung soll als Prototyp umgesetzt werden
-  \item
-    Während des Erstellens sollen Metriken gesammelt werden, die
-    relevante Kriterien beschreiben
-
-    \begin{itemize}
-    \item
-      Initial Aufwand (Arbeitsstunden)
-    \item
-      Notwendiges Wissen
-    \end{itemize}
-  \item
-    Am Ende der Implementierung sollen Metriken für die anderen
-    Kriterien gesammelt werden
-
-    \begin{itemize}
-    \item
-      Wartungsaufwand: Wird wahrscheinlich eine Schätzung sein, aus der
-      gesammelten Erfahrung
-    \item
-      Laufende Kosten: Zum einen die aktuell anfallenden Kosten.
-      Zudem kann es eine Hochrechnung geben, wenn die Applikation skaliert.
-    \item
-      Skalierbarkeit: Hierfür sollen verschiedene Benchmarks durchgeführt werden
-    \item
-      (optional) Sicherheit: Hierfür kann ein Pentest durchgeführt werden
-    \end{itemize}
+    Während der Implementierung und am Ende, sollen Metriken gesammelt werden, um die zuvor erarbeiteten Kriterien auszuwerten.
   \end{itemize}
 \item
   Auswertung

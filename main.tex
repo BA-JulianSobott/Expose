@@ -1,0 +1,97 @@
+% arara: pdflatex: { shell : yes }
+% arara: biber
+% arara: pdflatex: { shell : yes }
+% arara: pdflatex: { shell : yes }
+
+\documentclass[oneside]{ausarbeitung}
+
+\bibliography{latexlit}
+
+\usepackage{dirtree}
+
+% ----------------------------------------------------------------------
+
+
+\makeatletter
+
+\begin{document}
+
+%--- Sprachauswahl
+% Erlaubte Werte:
+%   \selectlanguage{english}
+%   \selectlanguage{ngerman}
+    \selectlanguage{ngerman}
+
+%--- Art der Arbeit
+% Erlaubte Werte:
+%   \Praxissemesterbericht
+%   \Projektbericht
+   \Bachelorarbeit
+%   \Seminararbeit
+%   \Masterarbeit
+
+%    \Seminararbeit
+
+%--- Studiengang:
+% Erlaubte Werte:
+%    \Informatik
+%   \Elektronik
+%   \DataScience
+    \Informatik
+
+    \title{Vergleich verschiedener Lösungen zur Migration einer self-hosted single tenant Applikation in eine SaaS Applikation anhand einer Beispielapplikation}
+
+    \author{Julian Sobott }
+    \matrikelnr{76511}
+
+%--- Ist der Erstbetreuer (\examinerA) an der Hochschule ein Professor?
+% Erlaubte Werte:
+   \examinerIsAProfessortrue   % Ja
+%   \examinerIsAProfessorfalse  % Nein
+%    \examinerIsAProfessorfalse   % Ja
+
+%--- Betreuer
+    \examinerA{Prof. Dr. Gregor Grambow}
+%\examinerB{Prof.~Dr.~Ulrich~Klauck}
+
+%--- Einreichungsdatum
+    \date{30. September 2022}
+
+%--- Angaben zur Firma
+% Auskommentieren, wenn die Arbeit nicht bei einer ext. Firma gemacht wurde.
+\companyname{Frachtwerk GmbH}
+\industrialsector{IT Beratung}
+\companystreet{Große Präsidentenstraße 10}
+\companycity{10178 Berlin}
+
+%--- Angaben zum Betreuer bei dieser Firma
+%\advisorname{Name des Betreuers}
+%\advisorphone{(01234) 567-890}
+%\advisoremail{name@company.xxx}
+
+%--- Titelseite Anzeigen
+    \maketitle
+    \cleardoublepage
+
+%---
+    \pagenumbering{arabic}
+    \setcounter{page}{1}
+
+%--- Firmendaten Anzeigen
+% Auskommentieren, wenn die Arbeit nicht bei einer ext. Firma gemacht wurde.
+%\makeworkplace
+%\cleardoublepage
+
+%--- Eidesstattliche Erklärung anzeigen
+%    \makeaffirmation
+
+%---
+%-----------------------------------------------------------------------
+    \cleardoublepage
+
+    \input{expose.tex}
+
+    \appendix
+    \printbibliography[heading=bibintoc]
+
+\end{document}

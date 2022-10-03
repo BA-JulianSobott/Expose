@@ -1,0 +1,169 @@
+\section{Kontext}\label{sec:kontext}
+
+Im Unternehmen wurde eine Projektverwaltungssoftware entwickelt.
+Diese hat unter anderem folgende Funktionen:
+\begin{itemize}
+  \item Für Kundenprojekte können Pläne angelegt werden.
+  \item Mitarbeiter:innen können Stunden für die Projekte erfassen.
+  \item Am Ende eines Monats können aus den erfassten Stunden die Rechnungen an die Kunden erstellt werden.
+  \item Projektleiter:innen können die Stunden der Mitarbeiter:innen einsehen.
+  \item Projektleiter:innen haben eine Übersicht über die Kosten und Umsätze der Projekte.
+\end{itemize}
+
+Das Backend ist in Java mit Spring Boot geschrieben und verwendet als
+Datenspeicher eine MySQL Datenbank.
+Das Frontend ist in Vue.js geschrieben.
+
+Die Applikation ist im Moment eine self-hosted single tenant Applikation.
+Deployt wird der Stack in Docker Containern auf einer virtuellen Maschine mithilfe von docker-compose.
+
+Um die Applikation an Kunden verkaufen zu können, soll sie als Software
+as a Service (SaaS) angeboten werden.
+Das heißt, die Software kann über die Webseite von mehreren Mandaten genutzt werden.
+
+
+\section{Problemstellung}\label{sec:problemstellung}
+
+Im Moment ist die Applikation so aufgebaut, dass eine Instanz der Applikation nur von einem Mandanten genutzt werden kann.
+Das heißt in der Datenbank, sind alle Tabellen so ausgelegt, dass die Daten von einem Mandanten kommen.
+Im Backend wird immer auf dieselbe Datenbank zugegriffen und es gibt keine Möglichkeit zwischen mehreren Mandanten zu unterscheiden.
+Im Frontend ist es nicht möglich sich als Mandant einen Zugang zu kaufen.
+
+Dadurch entstehen folgende Probleme.
+Im Frontend muss es die Möglichkeit geben, sich als Mandant, einen Zugang zu kaufen und einzurichten.
+Im Backend muss diese Funktionalität unterstützt werden.
+An einer Stelle zwischen Frontend und Datenbank muss der jeweilige Mandant festgestellt werden, sodass die entsprechenden Daten ausgewählt werden.
+Hier ist die Schwierigkeit zu entscheiden, auf welcher Ebene die Logik und die Daten voneinander getrennt werden sollen.
+Zum Beispiel, ob es pro Mandant eigene Datenbanken, eigene Tabellen geben soll oder nur über Attribute innerhalb einer Tabelle die Mandanten unterschieden werden sollen.
+
+\section{Lösungsansatz}\label{sec:loesungsansatz}
+
+Im Rahmen der Bachelorarbeit sollen verschiedene Lösungsansätze verglichen werden.
+Dafür soll in der Literatur nach vergleichbaren Problemen und deren Lösungen recherchiert werden.
+Um das Vergleichen zu ermöglichen, sollen Kriterien gefunden und definiert werden, anhand derer die Lösungen verglichen werden können.
+Anhand der recherchierten Quellen sollen Lösungsansätze erstellt und mit den Kriterien verglichen werden.
+Danach soll eine, für das Beispielprojekt am besten geeignete Lösung, als Prototyp umgesetzt werden.
+
+\section{Vorgehen}\label{sec:vorgehen}
+
+\begin{enumerate}
+  \item Literaturrecherche
+  \begin{itemize}
+    \item Mithilfe der strukturierten Literaturrecherche sollen Quellen gefunden werden
+  \end{itemize}
+\item
+  Finden und definieren der Kriterien anhand derer, die Lösungen möglichst objektiv
+  miteinander verglichen werden können.
+
+  \begin{itemize}
+  \item
+    Dabei soll ein Kriterium möglichst so definiert werden, dass es
+    quantitativ bestimmbar ist.
+  \item
+    ist dies nicht möglich, soll eine Skala von 1 bis 10 verwendet
+    werden.
+  \end{itemize}
+\item
+  Verschiedene mögliche Lösungen sammeln
+
+  \begin{itemize}
+    \item Die Lösungen können aus der Literaturrecherche auf die Beispielapplikation passend, angepasst und kombiniert werden.
+  \item
+    Die Lösungen sollen möglichst weit und konkret ausgearbeitet werden.
+  \item
+    Hierfür sollen, soweit sinnvoll, auch UML-Diagramme erstellt werden.
+  \end{itemize}
+\item
+  Mögliche Lösungen theoretisch miteinander vergleichen
+
+  \begin{itemize}
+  \item
+    Jede Lösung soll anhand der Kriterien bewertet werden
+  \item
+    Dabei soll die Bewertung anhand der Beispielapplikation und dem
+    gegebenem Kontext erfolgen.
+    So soll sichergestellt werden, dass die
+    Werte Vergleichbar sind.
+  \end{itemize}
+\item Eine Lösung für das Beispielprojekt auswählen
+
+  \begin{itemize}
+  \item
+    Anhand der Kriterien soll die möglicherweise beste Lösung herausgesucht werden
+  \end{itemize}
+\item
+  Lösung in einem Prototyp umsetzen
+
+  \begin{itemize}
+  \item
+    Die rausgesuchte Lösung soll als Prototyp umgesetzt werden
+  \item
+    Während des Erstellens sollen Metriken gesammelt werden, die
+    relevante Kriterien beschreiben
+
+    \begin{itemize}
+    \item
+      Initial Aufwand (Arbeitsstunden)
+    \item
+      Notwendiges Wissen
+    \end{itemize}
+  \item
+    Am Ende der Implementierung sollen Metriken für die anderen
+    Kriterien gesammelt werden
+
+    \begin{itemize}
+    \item
+      Wartungsaufwand: Wird wahrscheinlich eine Schätzung sein, aus der
+      gesammelten Erfahrung
+    \item
+      Laufende Kosten: Zum einen die aktuell anfallenden Kosten.
+      Zudem kann es eine Hochrechnung geben, wenn die Applikation skaliert.
+    \item
+      Skalierbarkeit: Hierfür sollen verschiedene Benchmarks durchgeführt werden
+    \item
+      (optional) Sicherheit: Hierfür kann ein Pentest durchgeführt werden
+    \end{itemize}
+  \end{itemize}
+\item
+  Auswertung
+
+  \begin{itemize}
+  \item
+    Gesammelte Metriken mit zuvor berechneten Kriterien vergleichen
+  \item
+    Implementierung im allgemeinen auswerten
+  \end{itemize}
+\end{enumerate}
+
+\section{Zeitplan}\label{sec:zeitplan}
+
+Gesamt 16 Wochen (4 Monate a 4 Wochen)
+
+\begin{itemize}
+\item
+  07.10: Anmeldung der BA
+\item
+  12.10: Problemstellung (0.5 Woche)
+\item
+  19.10: Kriterien festlegen und definieren (1 Woche)
+\item
+  23.10: Mögliche Lösungen entwerfen (2 Wochen)
+\item
+  06.11: Lösungen miteinander vergleichen (2 Wochen)
+\item
+  11.12: Implementierung (5 Wochen)
+\item
+  25.12: Evaluierung/Ergebnis und Ausblick (2 Wochen)
+\item
+  01.01: Puffer/Pause (1 Woche)
+\item
+  08.01: Grundlagen (1 Woche)
+\item
+  12.01: Einleitung (0.5 Woche)
+\item
+  19.01: Layout und Korrekturlesen (1 Woche)
+\item
+  26.01: Drucken (1 Woche)
+\item
+  27.01: Abgabe BA
+\end{itemize}

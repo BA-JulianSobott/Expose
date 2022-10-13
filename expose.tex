@@ -1,9 +1,15 @@
+\section{Über die Firma}
+Die Frachtwerk GmbH wurde im Jahr 2017 in Berlin als Unternehmensberatung mit Fokus auf Logistik und Transport gegründet.
+Mittlerweile werden in einem zweiten Büro in Karlsruhe Softwareentwicklung und System Operations als weitere Dienstleistungen angeboten.
+In der Firma arbeiten knapp 40 Mitarbeiter:innen.
+Der größte Kunde ist die Deutsche Bahn AG mit unter anderem den Subunternehmen DB Netz AG, DB Bus AG und DB Regio AG.
+
 \section{Kontext}\label{sec:kontext}
 
 Im Unternehmen wurde eine Projektverwaltungssoftware entwickelt.
 Diese hat unter anderem folgende Funktionen:
 \begin{itemize}
-  \item Für Kundenprojekte können Pläne angelegt werden. Ein Plan beschreibt unter anderem, wer wie viel Stunden mit welchen Kosten an einem Projekt arbeiten kann. 
+  \item Für Kundenprojekte können Pläne angelegt werden. Ein Plan beschreibt unter anderem, wer wie viele Stunden mit welchen Kosten an einem Projekt arbeiten kann. 
   \item Mitarbeiter:innen können Stunden für die Projekte erfassen.
   \item Am Ende eines Monats können aus den erfassten Stunden die Rechnungen an die Kunden erstellt werden.
   \item Projektleiter:innen können die Stunden der Mitarbeiter:innen einsehen.
@@ -15,34 +21,40 @@ Datenspeicher eine MySQL Datenbank.
 Das Frontend ist in Vue.js geschrieben.
 
 Die Applikation ist im Moment eine self-hosted single tenant Applikation.
+Das heißt, die Applikation wird auf einer virtuellen Maschine für einen einzelnen Mandanten deployt.
+In dem Fall für das eigene Unternehmen.
 Deployt wird der Stack in Docker Containern auf einer virtuellen Maschine mithilfe von docker-compose.
 
 Um die Applikation an Kunden verkaufen zu können, soll sie als Software
 as a Service (SaaS) angeboten werden.
-Das heißt, die Software kann über die Webseite von mehreren Mandanten genutzt werden.
+Das heißt unter anderem, dass die Software über die Webseite von mehreren Mandanten genutzt werden kann.
 
 
 \section{Problemstellung}\label{sec:problemstellung}
 
 Im Moment ist die Applikation so aufgebaut, dass eine Instanz der Applikation nur von einem Mandanten genutzt werden kann.
-Das heißt in der Datenbank, sind alle Tabellen so ausgelegt, dass die Daten von einem Mandanten kommen.
+Das heißt in der Datenbank sind alle Tabellen so ausgelegt, dass die Daten von einem Mandanten kommen.
 Im Backend wird immer auf dieselbe Datenbank zugegriffen und es gibt keine Möglichkeit zwischen mehreren Mandanten zu unterscheiden.
-Im Frontend ist es nicht möglich sich als Mandant einen Zugang zu kaufen.
+Im Frontend ist es nicht möglich, sich als Mandant einen Zugang zu kaufen.
 
-Dadurch entstehen folgende Probleme.
+Dadurch entstehen folgende Anforderungen.
 Im Frontend muss es die Möglichkeit geben, sich als Mandant, einen Zugang zu kaufen und einzurichten.
 Im Backend muss diese Funktionalität unterstützt werden.
-An einer Stelle zwischen Frontend und Datenbank muss der jeweilige Mandant festgestellt werden, sodass die entsprechenden Daten ausgewählt werden.
+An einer Stelle zwischen Frontend und Datenbank muss der jeweilige Mandant festgestellt werden, sodass ein Mandant nur Zugriff auf seine eigenen Daten hat.
 Hier ist die Schwierigkeit zu entscheiden, auf welcher Ebene die Logik und die Daten voneinander getrennt werden sollen.
 Zum Beispiel, ob es pro Mandant eine eigene Datenbank, eigene Tabellen geben soll oder nur über Attribute innerhalb einer Tabelle die Mandanten unterschieden werden sollen.
 
+Zu den oben genannten Anforderungen kommen noch nicht funktionale Anforderungen wie Skalierbarkeit, Betriebskosten, Anpassbarkeit etc. dazu.
+
 \section{Lösungsansatz}\label{sec:loesungsansatz}
 
-Im Rahmen der Bachelorarbeit sollen verschiedene Lösungsansätze verglichen werden.
-Dafür soll in der Literatur nach vergleichbaren Problemen und deren Lösungen recherchiert werden.
-Um das Vergleichen zu ermöglichen, sollen Kriterien gefunden und definiert werden, anhand derer die Lösungen verglichen werden können.
-Anhand der recherchierten Quellen sollen Lösungsansätze erstellt und mit den Kriterien verglichen werden.
+Zu Beginn der Bachelorarbeit sollen durch Literaturrecherche Eigenschaften gesammelt und vorgestellt werden, die eine Software as a Service Applikation ausmacht.
+In einer weiteren Literaturrecherche sollen dann Lösungsansätze recherchiert und vorgestellt werden, um diese Eigenschaften zu erfüllen.
+Um das Vergleichen verschiedener Lösungen zu ermöglichen, sollen Kriterien gefunden und definiert werden, anhand derer die Lösungen verglichen werden können.
+Die herausgearbeiteten Lösungen sollen anhand der Kriterien bewertet werden.
 Danach soll eine, für das Beispielprojekt am besten geeignete Lösung, als Prototyp umgesetzt werden.
+Das durch die Implementierung entstandene Ergebnis soll mit der theoretischen Lösung verglichen werden.
+Am Ende soll ein Fazit gezogen werden.
 
 \section{Vorgehen}\label{sec:vorgehen}
 
@@ -50,6 +62,8 @@ Danach soll eine, für das Beispielprojekt am besten geeignete Lösung, als Prot
   \item Literaturrecherche
   \begin{itemize}
     \item Mithilfe der strukturierten Literaturrecherche sollen Quellen gefunden werden
+    \item Zuerst sollen Eigenschaften gesammelt werden, die eine SaaS ausmachen.
+    \item Danach sollen Lösungen für diese Eigenschaften recherchiert werden.
   \end{itemize}
 \item
   Finden und definieren der Kriterien anhand derer, die Lösungen möglichst objektiv
@@ -60,18 +74,15 @@ Danach soll eine, für das Beispielprojekt am besten geeignete Lösung, als Prot
     Dabei soll ein Kriterium möglichst so definiert werden, dass es
     quantitativ bestimmbar ist.
   \item
-    ist dies nicht möglich, soll eine Skala von 1 bis 10 verwendet
-    werden.
+    Qualitative Merkmale sollen in eine Skala von 1 bis 10 übersetzt werden.
   \end{itemize}
 \item
-  Verschiedene mögliche Lösungen sammeln
+  Verschiedene mögliche Lösungen ausarbeiten
 
   \begin{itemize}
-    \item Die Lösungen können aus der Literaturrecherche auf die Beispielapplikation passend, angepasst und kombiniert werden.
+    \item Für die notwendigen Eigenschaften, Lösungen ausarbeiten
   \item
-    Die Lösungen sollen möglichst weit und konkret ausgearbeitet werden.
-  \item
-    Hierfür sollen, soweit sinnvoll, auch UML-Diagramme erstellt werden.
+    Die Lösungen sollen so weit und konkret ausgearbeitet werden, dass ein Vergleich möglich ist.
   \end{itemize}
 \item
   Mögliche Lösungen theoretisch miteinander vergleichen
@@ -83,23 +94,23 @@ Danach soll eine, für das Beispielprojekt am besten geeignete Lösung, als Prot
     Dabei soll die Bewertung anhand der Beispielapplikation und dem
     gegebenem Kontext erfolgen.
     So soll sichergestellt werden, dass die
-    Werte Vergleichbar sind.
+    Werte vergleichbar sind.
   \end{itemize}
 \item Eine Lösung für das Beispielprojekt auswählen
 
   \begin{itemize}
   \item
-    Anhand der Kriterien soll die möglicherweise beste Lösung herausgesucht werden
-    \item Bei der Auswahl soll eine Lösung gefunden werden, die gut abgeschnitten hat und in der vorgegebenen Zeit machbar ist.
+    Anhand der Kriterien soll die für diesen Kontext beste Lösung herausgesucht werden
+    \item Bei der Auswahl soll eine Lösung gefunden werden, die gut abgeschnitten hat und in der vorgegebenen Zeit umsetzbar ist.
   \end{itemize}
 \item
   Lösung in einem Prototyp umsetzen
 
   \begin{itemize}
-  \item Während der Entwicklung sollen soweit sinnvoll Tests erstellt werden.
+  \item Während der Entwicklung sollen soweit sinnvoll automatisierte Tests erstellt werden.
   \item Über eine CI/CD Pipeline sollen die Änderungen regelmäßig getestet und deployt werden.
   \item
-    Während der Implementierung und am Ende, sollen Metriken gesammelt werden, um die zuvor erarbeiteten Kriterien auszuwerten.
+    Während und am Ende der Implementierung, sollen Metriken gesammelt werden, um die zuvor erarbeiteten Kriterien auszuwerten.
   \end{itemize}
 \item
   Auswertung
@@ -108,8 +119,14 @@ Danach soll eine, für das Beispielprojekt am besten geeignete Lösung, als Prot
   \item
     Gesammelte Metriken mit zuvor berechneten Kriterien vergleichen
   \item
-    Implementierung im allgemeinen auswerten
+    Implementierung im Allgemeinen auswerten
   \end{itemize}
+  \item Fazit
+\begin{itemize}
+    \item Die implementierte Lösung soll bewertet werden.
+    \item Die Übertragbarkeit auf andere Projekte soll beschrieben werden.
+    \item In einem Ausblick soll dargestellt werden, wie es mit der Applikation weiter geht.
+\end{itemize}
 \end{enumerate}
 
 \section{Zeitplan}\label{sec:zeitplan}
@@ -118,29 +135,30 @@ Gesamt 16 Wochen (4 Monate a 4 Wochen)
 
 \begin{itemize}
 \item
-  07.10: Anmeldung der BA
+  14.10: Anmeldung der BA
 \item
-  12.10: Problemstellung (0.5 Woche)
+  19.10: Problemstellung (0.5 Wochen)
+    \item 19. 10: Literaturrecherche und Ergebnisse sammeln (1 Woche)
+    \item 26.10: Ergebnisse verschriftlichen (1 Woche)
+  \item 02.11: Kriterien festlegen und definieren (1 Woche)
 \item
-  19.10: Kriterien festlegen und definieren (1 Woche)
+  23.11: Mögliche Lösungen entwerfen (2 Wochen)
 \item
-  23.10: Mögliche Lösungen entwerfen (2 Wochen)
+  30.11: Lösungen miteinander vergleichen (1 Woche)
 \item
-  06.11: Lösungen miteinander vergleichen (2 Wochen)
+  21.11: Implementierung (3 Wochen)
 \item
-  11.12: Implementierung (5 Wochen)
+  04.01: Fazit (2 Wochen)
 \item
-  25.12: Evaluierung/Ergebnis und Ausblick (2 Wochen)
+  11.01: Grundlagen fertigstellen (1 Woche)
 \item
-  01.01: Puffer/Pause (1 Woche)
+  15.01: Einleitung (0.5 Woche)
 \item
-  08.01: Grundlagen (1 Woche)
+  22.01: Layout und Korrekturlesen (1 Woche)
 \item
-  12.01: Einleitung (0.5 Woche)
+  25.01: Drucken (0.5 Wochen)
+  \item Puffer (0.5 Wochen)
 \item
-  19.01: Layout und Korrekturlesen (1 Woche)
-\item
-  26.01: Drucken (1 Woche)
-\item
-  27.01: Abgabe BA
+  27.01: Abgabe
 \end{itemize}
+
